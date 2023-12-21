@@ -1,0 +1,175 @@
+<%-include ("../Includes/Admin/head.ejs")%>
+
+    <body>
+        <%-include ("../Includes/Admin/header.ejs")%>
+            <!-- ======= Sidebar ======= -->
+            <aside id="sidebar" class="sidebar">
+                <ul class="sidebar-nav" id="sidebar-nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/dashboard">
+                            <i class="bi bi-columns-gap"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/students">
+                            <i class="bi bi-people"></i>
+                            <span>Manage Students</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/faculty">
+                          <i class="bi bi-person-vcard"></i>
+                          <span>Manage Faculty</span>
+                        </a>
+                      </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/attendance">
+                          <i class="bi bi-table"></i>
+                          <span>Attendance</span>
+                        </a>
+                      </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " data-bs-target="#book-nav" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-book-half"></i><span>Books</span><i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="book-nav" class="nav-content collapse show " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="/admin/all_books">
+                                    <i class="bi bi-circle"></i><span>All Books</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/issued_books">
+                                    <i class="bi bi-circle"></i><span>Currently Issued</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/issue_request">
+                                    <i class="bi bi-circle"></i><span>Issued Request</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/renew_request">
+                                    <i class="bi bi-circle"></i><span>Renew Request</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/return_request">
+                                    <i class="bi bi-circle"></i><span>Return Request</span>
+                                </a>
+                            </li>
+
+
+                            <li>
+                                <a href="/admin/recommendations" class="active">
+                                    <i class="bi bi-check-circle"></i>
+                                    <span>Recommendations</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/messages">
+                            <i class="bi bi-chat"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </aside>
+            <!-- End Sidebar-->
+            <main id="main" class="main">
+                <div class="pagetitle">
+                    <h1>Books</h1>
+                    <nav>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
+                            <li class="breadcrumb-item active">Recommendation</li>
+                        </ol>
+                    </nav>
+                </div>
+                <section class="section profile">
+                    <div class="row">
+
+
+
+                        <div class="card">
+                            <div class="card-body pt-3">
+                                <!-- Bordered Tabs -->
+                                <div class="row align-items-center justify-content-between">
+                                    <div class="col-auto">
+                                        <h5 class="card-title">All Recommendations Books</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="/admin/add_books" class="btn btn-success btn-sm"><i
+                                                class="bi bi-plus-circle"></i> Add Books</a>
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive-md">
+                                    <table id="recommendBook" class="table table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Submitted Date</th>
+                                                <th>Book Name</th>
+                                                <th>Author</th>
+                                                <th>Description</th>
+                                                <th>User ID</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%recommendations.forEach((recommendation,index)=> {%>
+                                                <tr>
+                                                    <td>
+                                                        <%=index + 1%>
+                                                    </td>
+                                                    <td>
+                                                        <%=recommendation.date_submitted.toLocaleString('en-US', {
+                                                            year: 'numeric' , month: 'long' , day: 'numeric' ,
+                                                            hour: 'numeric' , minute: 'numeric' , hour12: true })%>
+                                                    </td>
+                                                    <td>
+                                                        <%=recommendation.book_name%>
+                                                    </td>
+                                                    <td>
+                                                        <%=recommendation.author%>
+                                                    </td>
+                                                    <td>
+                                                        <%=recommendation.description%>
+                                                    </td>
+                                                    <td>
+                                                        <%=recommendation.user_id%>
+                                                    </td>
+                                                </tr>
+
+                                                <%})%>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    </div>
+                </section>
+
+            </main>
+            <!-- End #main -->
+            <%-include ("../Includes/Admin/script.ejs")%>
+                <script>
+                    $(document).ready(function () {
+                        $('#recommendBook').DataTable({
+                     
+                        });
+                    });
+                </script>
+
+    </body>
+
+    </html>

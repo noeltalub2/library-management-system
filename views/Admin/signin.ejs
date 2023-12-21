@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="shortcut icon" href="/img/cit_logo.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/020dbcd45c.js" crossorigin="anonymous"></script>
+    <title>Admin - Sign In</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-light bg-white navbar-expand-md py-1">
+            <div class="container-lg">
+                <a class="navbar-brand" href="/">
+                    <img src="/img/mmsu_logo.png" height="45" alt="image">
+                    <img src="/img/cit_logo.png" height="40" alt="image">
+
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav3"
+                    aria-controls="navbarNav3" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav3">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Scan Barcode</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signup">Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-success ms-md-2" href="/signin">Sign In</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main id="main">
+        <div class="container-lg">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="pt-3 pb-2">
+                                <h5 class="card-title text-center pb-0 fs-3">Log in as admin</h5>
+                                <p class="text-center small">Enter your login details</p>
+                            </div>
+                            <%-include ("../Includes/message.ejs")%>
+                                <form method="post" class="needs-validation" novalidate>
+                                    <div class="form-group">
+                                        <div class="input-group mb-3 has-validation">
+
+                                            <span class="input-group-text"><i class="fa fa-user"></i>
+                                            </span>
+                                            <input name="username" class="form-control" placeholder="Username"
+                                                type="text" required autofocus>
+
+                                            <div class="invalid-feedback">
+                                                Please enter your Username
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="input-group mb-3 has-validation">
+
+                                            <span class="input-group-text"> <i class="fa fa-lock"></i>
+                                            </span>
+                                            <input class="form-control" name="password" placeholder="******"
+                                                type="password" required>
+                                            <div class="invalid-feedback">
+                                                Please enter your password
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn w-100">
+                                            Login </button>
+                                    </div>
+
+                                    <div class="col-12 mt-2 mb-2">
+                                        <p class="text-dark text-center">Don't have an account yet? <a
+                                                class="text-decoration-none text-primary" href="/admin/signup">Sign
+                                                Up</a></p>
+                                    </div>
+                                </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/validator.js"></script>
+</body>
+
+</html>

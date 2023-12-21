@@ -1,0 +1,286 @@
+<%-include ("../Includes/Student/head.ejs")%>
+
+    <body>
+        <%-include ("../Includes/Student/header.ejs")%>
+            <!-- ======= Sidebar ======= -->
+            <aside id="sidebar" class="sidebar">
+                <ul class="sidebar-nav" id="sidebar-nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/dashboard">
+                            <i class="bi bi-columns-gap"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <!-- End issued-books Nav -->
+                    </li><!-- End Components Nav -->
+
+                    <li class="nav-item">
+                        <a class="nav-link " data-bs-target="#book-nav" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-book-half"></i><span>My Books</span><i
+                                class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="book-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="/all_books">
+                                    <i class="bi bi-circle"></i><span>All Books</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/borrowed_books">
+                                    <i class="bi bi-circle"></i><span>Previously Borrowed</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/issued_books" class="active">
+                                    <i class="bi bi-circle"></i><span>Currently Issued</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/attendance">
+                            <i class="bi bi-table"></i>
+                            <span>Attendance</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/messages">
+                            <i class="bi bi-chat"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/recommendations">
+                            <i class="bi bi-check-circle"></i>
+                            <span>Recommendation</span>
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+            <!-- End Sidebar-->
+            <main id="main" class="main">
+                <div class="pagetitle">
+                    <h1>Issued books</h1>
+                    <nav>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                            <li class="breadcrumb-item active">Issued Books</li>
+                        </ol>
+                    </nav>
+                </div>
+                <section class="section issued-books">
+
+                    <div class="row">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <h5 class="card-title">Currently Issued Books</h5>
+                                <%-include ("../Includes/Student/message.ejs")%>
+                                    <div class="table-responsive-md">
+                                        <table id="allIssuedTable" class="table table-bordered table-sm"
+                                            style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>Title</th>
+                                                    <th>Author</th>
+                                                    <th>Issued Date</th>
+                                                    <th>Due Date</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% issuedBooks.forEach((book,index)=> { %>
+                                                    <%if (book.status==='ISSUED_PENDING' ) {%>
+                                                        <tr>
+                                                            <td>
+                                                                <%=index + 1%>
+                                                            </td>
+                                                            <td>
+                                                                <%= book.title %>
+                                                            </td>
+                                                            <td>
+                                                                <%= book.author %>
+                                                            </td>
+                                                            <td>
+                                                                N/A
+                                                            </td>
+                                                            <td>
+                                                                N/A
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <span class="badge bg-warning">Pending</span>
+                                                            </td>
+
+                                                        </tr>
+                                                        <%} else if (book.status==='ISSUED_APPROVED' ||
+                                                            book.status==="RETURN_PENDING" ||
+                                                            book.status==="RETURN_REJECTED" ||
+                                                            book.status==="RENEW_PENDING" ||
+                                                            book.status==="RENEW_REJECTED" ||
+                                                            book.status==="RENEW_APPROVED" ) {%>
+                                                            <tr>
+                                                                <td>
+                                                                    <%=index + 1%>
+                                                                </td>
+                                                                <td>
+                                                                    <%= book.title %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= book.author %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= book.issue_date.toLocaleString('en-US', {
+                                                                        year: 'numeric' , month: 'long' , day: 'numeric'
+                                                                        , hour: 'numeric' , minute: 'numeric' , hour12:
+                                                                        true }) %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= book.due_date.toLocaleString('en-US', {
+                                                                        year: 'numeric' , month: 'long' , day: 'numeric'
+                                                                        , hour: 'numeric' , minute: 'numeric' , hour12:
+                                                                        true }) %>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="row justify-content-center">
+                                                                        <div class="col-auto d-flex align-items-center">
+                                                                            <% if (new Date(book.due_date) <=new Date())
+                                                                                { %>
+                                                                                <button type="button"
+                                                                                    class="btn btn-success btn-sm me-2"
+                                                                                    disabled>Renew</button>
+                                                                                <% } else { %>
+                                                                                    <button type="button"
+                                                                                        class="btn btn-success btn-sm me-2"
+                                                                                        onclick="renewBook('<%=book.id%>','<%=book.title%>','<%=book.user_id%>')">Renew</button>
+                                                                                    <% } %>
+
+
+                                                                                        <button type="button"
+                                                                                            class="btn btn-danger btn-sm"
+                                                                                            onclick="returnBook('<%=book.id%>','<%=book.title%>','<%=book.user_id%>')">Return</button>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <%}%>
+
+                                                                <% }); %>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </main>
+            <!-- End #main -->
+            <%-include ("../Includes/Student/script.ejs")%>
+
+                <script>
+
+                    function renewBook(bookId, title, studentId) {
+                        Swal.fire({
+                            title: "Renew Confirmation",
+                            text: `Are you sure you want to renew the book titled "${title}"?`,
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonText: "Renew", // Set the text for the confirmation button
+                            cancelButtonText: "Cancel",  // Set the text for the cancel button
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+
+                                fetch("/renew", {
+                                    method: "POST",
+                                    body: JSON.stringify({ bookId, studentId }),
+                                    headers: { "Content-Type": "application/json" },
+                                })
+                                    .then((res) => res.json())
+                                    .then((response) => {
+                                        if (response.status === "success") {
+                                            Swal.fire(
+                                                'Success!',
+                                                `${response.message}`,
+                                                'success'
+                                            ).then(function () {
+                                                window.location.href = '/issued_books';
+                                            });
+                                        }
+                                        if (response.status === "error") {
+                                            Swal.fire(
+                                                'Error',
+                                                `${response.message}`,
+                                                'error'
+                                            ).then(function () {
+                                                window.location.href = '/issued_books';
+                                            });
+                                        }
+                                    });
+                            } else if (result.isDismissed) {
+                                // User clicked the "Cancel" button or outside the dialog
+                                // You can add code for what should happen when the cancel button is clicked or the dialog is dismissed
+                            }
+                        });
+                    }
+
+                    function returnBook(bookId, title, studentId) {
+                        Swal.fire({
+                            title: "Return Confirmation",
+                            text: `Are you sure you want to return the book titled "${title}"?`,
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonText: "Return", // Set the text for the confirmation button
+                            cancelButtonText: "Cancel",  // Set the text for the cancel button
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+
+                                fetch("/return", {
+                                    method: "POST",
+                                    body: JSON.stringify({ bookId, studentId }),
+                                    headers: { "Content-Type": "application/json" },
+                                })
+                                    .then((res) => res.json())
+                                    .then((response) => {
+                                        if (response.status === "success") {
+                                            Swal.fire(
+                                                'Success!',
+                                                `${response.message}`,
+                                                'success'
+                                            ).then(function () {
+                                                window.location.href = '/issued_books';
+                                            });
+                                        }
+                                        if (response.status === "error") {
+                                            Swal.fire(
+                                                'Error',
+                                                `${response.message}`,
+                                                'error'
+                                            ).then(function () {
+                                                window.location.href = '/issued_books';
+                                            });
+                                        }
+                                    });
+                            } else if (result.isDismissed) {
+                                // User clicked the "Cancel" button or outside the dialog
+                                // You can add code for what should happen when the cancel button is clicked or the dialog is dismissed
+                            }
+                        });
+                    }
+
+
+
+                    $(document).ready(function () {
+                        $('#allIssuedTable').DataTable();
+                    });
+                </script>
+
+
+    </body>
+
+    </html>

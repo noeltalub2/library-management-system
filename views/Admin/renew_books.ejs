@@ -1,0 +1,275 @@
+<%-include ("../Includes/Admin/head.ejs")%>
+
+    <body>
+        <%-include ("../Includes/Admin/header.ejs")%>
+            <!-- ======= Sidebar ======= -->
+            <aside id="sidebar" class="sidebar">
+                <ul class="sidebar-nav" id="sidebar-nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/dashboard">
+                            <i class="bi bi-columns-gap"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/students">
+                            <i class="bi bi-people"></i>
+                            <span>Manage Students</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/faculty">
+                          <i class="bi bi-person-vcard"></i>
+                          <span>Manage Faculty</span>
+                        </a>
+                      </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/attendance">
+                          <i class="bi bi-table"></i>
+                          <span>Attendance</span>
+                        </a>
+                      </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " data-bs-target="#book-nav" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-book-half"></i><span>Books</span><i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="book-nav" class="nav-content collapse show " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="/admin/all_books">
+                                    <i class="bi bi-circle"></i><span>All Books</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/issued_books">
+                                    <i class="bi bi-circle"></i><span>Currently Issued</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/issue_request">
+                                    <i class="bi bi-circle"></i><span>Issued Request</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/renew_request" class="active">
+                                    <i class="bi bi-circle"></i><span>Renew Request</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/return_request">
+                                    <i class="bi bi-circle"></i><span>Return Request</span>
+                                </a>
+                            </li>
+
+
+                            <li>
+                                <a href="/admin/recommendations">
+                                    <i class="bi bi-check-circle"></i>
+                                    <span>Recommendations</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/messages">
+                            <i class="bi bi-chat"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </aside>
+            <!-- End Sidebar-->
+            <main id="main" class="main">
+                <div class="pagetitle">
+                    <h1>Books</h1>
+                    <nav>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
+                            <li class="breadcrumb-item active">Renew Request</li>
+                        </ol>
+                    </nav>
+                </div>
+                <section class="section profile">
+                    <div class="row">
+
+
+
+                        <div class="card">
+                            <div class="card-body pt-3">
+                                <!-- Bordered Tabs -->
+                                <h5 class="card-title">
+                                    All Renew Request
+                                </h5>
+
+                                <div class="table-responsive-md">
+                                    <table id="renewBook" class="table table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>User ID</th>
+                                                <th>Book ID</th>
+                                                <th>Title</th>
+                                                <th>Issued Date</th>
+                                                <th>Due Date</th>
+                                                <th>Renewal Count</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% renew_books.forEach((renew_book,index) =>  { %>
+                                                <tr>
+                                                    <td>
+                                                        <%=index + 1 %>
+                                                    </td>
+                                                    <td>
+                                                        <%=renew_book.user_id%>
+                                                    </td>
+                                                    <td>
+                                                        <%= renew_book.book_id %>
+                                                    </td>
+                                                    <td>
+                                                        <%= renew_book.title %>
+                                                    </td>
+                                                    <td>
+                                                        <%= renew_book.issue_date.toLocaleString('en-US', {
+                                                            year: 'numeric' , month: 'long' , day: 'numeric' ,
+                                                            hour: 'numeric' , minute: 'numeric' , hour12: true }) %>
+                                                    </td>
+                                                    <td>
+                                                        <%= renew_book.due_date.toLocaleString('en-US', {
+                                                            year: 'numeric' , month: 'long' , day: 'numeric' ,
+                                                            hour: 'numeric' , minute: 'numeric' , hour12: true }) %>
+                                                    </td>
+                                                    <td>
+                                                        <%=renew_book.renewal_count%>
+                                                    </td>
+                                                    <td>
+                                                        <div class="row justify-content-center">
+                                                            <div class="col-auto d-flex align-items-center">
+                                                                <% if (renew_book.copies_available===0) { %>
+                                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                                        onclick="rejectBook('<%= renew_book.title.replace(/'/g, "\\'") %>', '<%= renew_book.user_id %>','<%= renew_book.id %>')">Reject</button>
+                                                                    <% } else { %>
+                                                                        <button type="button"
+                                                                            class="btn btn-success btn-sm me-2"
+                                                                            onclick="acceptBook('<%= renew_book.title.replace(/'/g, "\\'") %>', '<%= renew_book.user_id %>','<%= renew_book.id %>')">Accept</button>
+                                                                        <button type="button"
+                                                                            class="btn btn-danger btn-sm"
+                                                                            onclick="rejectBook('<%= renew_book.title.replace(/'/g, "\\'") %>', '<%= renew_book.user_id %>','<%= renew_book.id %>')">Reject</button>
+                                                                        <% } %>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+            <!-- End #main -->
+            <%-include ("../Includes/Admin/script.ejs")%>
+                <script>
+                    function acceptBook(title, studentId, bookId) {
+                        Swal.fire({
+                            title: "Renew Confirmation",
+                            text: `Are you sure you want to renew the book titled "${title}" requested by student ID: ${studentId}?`,
+                            icon: "info",
+                            showCancelButton: true,
+                            confirmButtonText: "Accept", // Set the text for the confirmation button
+                            cancelButtonText: "Cancel",  // Set the text for the cancel button
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // User clicked the "Accept" button
+                                fetch("/admin/renew/accept", {
+                                    method: "POST",
+                                    body: JSON.stringify({ bookId, studentId }),
+                                    headers: { "Content-Type": "application/json" },
+                                })
+                                    .then((res) => res.json())
+                                    .then((response) => {
+                                        if (response.status === "success") {
+                                            Swal.fire(
+                                                'Success!',
+                                                `${response.message}`,
+                                                'success'
+                                            ).then(function () {
+                                                window.location.href = '/admin/renew_request';
+                                            });
+                                        }
+                                        if (response.status === "error") {
+                                            Swal.fire(
+                                                'Error',
+                                                `${response.message}`,
+                                                'error'
+                                            ).then(function () {
+                                                window.location.href = '/admin/renew_request'
+                                            });
+                                        }
+                                    });
+                            } else if (result.isDismissed) {
+                                // User clicked the "Cancel" button or outside the dialog
+                                // You can add code for what should happen when the cancel button is clicked or the dialog is dismissed
+                            }
+                        });
+                    }
+
+
+                    function rejectBook(title, studentId, bookId) {
+                        Swal.fire({
+                            title: "Reject Confirmation",
+                            text: `Are you sure you want to reject the book titled "${title}" renewed by student ID: ${studentId}?`,
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonText: "Reject", // Set the text for the confirmation button
+                            cancelButtonText: "Cancel",  // Set the text for the cancel button
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // User clicked the "Reject" button
+                                fetch("/admin/renew/reject", {
+                                    method: "POST",
+                                    body: JSON.stringify({ bookId, studentId }),
+                                    headers: { "Content-Type": "application/json" },
+                                })
+                                    .then((res) => res.json())
+                                    .then((response) => {
+                                        if (response.status === "success") {
+                                            Swal.fire(
+                                                'Success!',
+                                                `${response.message}`,
+                                                'success'
+                                            ).then(function () {
+                                                window.location.href = '/admin/renew_request'
+                                            });
+                                        }
+                                        if (response.status === "error") {
+                                            Swal.fire(
+                                                'Error',
+                                                `${response.message}`,
+                                                'error'
+                                            ).then(function () {
+                                                window.location.href = '/admin/renew_request'
+                                            });
+                                        }
+                                    });
+                            } else if (result.isDismissed) {
+                                // User clicked the "Cancel" button or outside the dialog
+                                // You can add code for what should happen when the cancel button is clicked or the dialog is dismissed
+                            }
+                        });
+                    }
+
+                    $(document).ready(function () {
+                        $('#renewBook').DataTable();
+                    });
+                </script>
+    </body>
+
+    </html>

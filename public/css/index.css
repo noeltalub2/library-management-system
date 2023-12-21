@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap");
+:root {
+	--bs-bg-color: #f7f5f0;
+	--bs-blue: #3459e6;
+	--bs-indigo: #6610f2;
+	--bs-purple: #6f42c1;
+	--bs-pink: #d63384;
+	--bs-red: #dc3545;
+	--bs-orange: #fd7e14;
+	--bs-yellow: #ffc107;
+	--bs-green: #198754;
+	--bs-teal: #20c997;
+	--bs-cyan: #0dcaf0;
+	--bs-black: #000;
+	--bs-white: #fff;
+	--bs-gray: #6c757d;
+	--bs-gray-dark: #343a40;
+	--bs-primary: #3459e6;
+	--bs-secondary: #6c757d;
+	--bs-success: #147246;
+	--bs-info: #0dcaf0;
+	--bs-warning: #ffc107;
+	--bs-danger: #dc3545;
+	--bs-light: #f8f9fa;
+	--bs-dark: #212529;
+	--gray-100: #f8f9fa;
+	--gray-200: #e9ecef;
+	--gray-300: #dee2e6;
+	--gray-400: #ced4da;
+	--gray-500: #adb5bd;
+	--gray-600: #6c757d;
+	--gray-700: #495057;
+	--gray-800: #343a40;
+	--gray-900: #212529;
+}
+body {
+	font-family: "Jost", sans-serif;
+	background: url(../img/mmsu_bg.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+}
+
+main {
+	margin-top: 35px;
+}
+
+button.html5-qrcode-element:disabled {
+	opacity: 0.5;
+}
+
+button.html5-qrcode-element:focus {
+	outline: 0;
+}
+
+#html5-qrcode-button-camera-start:hover,
+#html5-qrcode-button-camera-permission:hover {
+	background-color: #0f5c38;
+	border-color: #0f5c38;
+}
+
+#html5-qrcode-button-camera-start:active,
+#html5-qrcode-button-camera-permission:active {
+	background-color: #0f5c38;
+	border-color: #0f5c38;
+}
+
+#html5-qrcode-button-camera-stop:hover {
+	background-color: #bb2d3b;
+	border-color: #dc3545;
+}
+
+#html5-qrcode-button-camera-stop:active {
+	background-color: #b02a37;
+	border-color: #a52834;
+}
+
+#html5-qrcode-button-camera-start,
+#html5-qrcode-button-camera-permission {
+	background-color: var(--bs-success);
+	border: 1px solid var(--bs-success);
+	border-radius: 3px;
+	color: #f7f5f0;
+}
+
+#html5-qrcode-button-camera-stop {
+	background-color: var(--bs-danger);
+	border: 1px solid var(--bs-danger);
+	border-radius: 3px;
+	color: #f7f5f0;
+}
+
+.radio-tile-group {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+/* //set dimensions for invisible container */
+.input-container {
+	position: relative;
+	height: 2.5rem;
+	width: 8rem;
+	margin: 0.5rem;
+}
+
+/* //make actual radio input invisible
+    // + stretch to fill container */
+.radio-button {
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	cursor: pointer;
+}
+
+/* default tile styles */
+.radio-tile {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	color: #1e1e1e; /* Set text color to Bootstrap gray */
+	background-color: transparent; /* Remove the red background color */
+	border: 1px solid #1e1e1e; /* Add a gray border */
+	border-radius: 3px;
+	padding: 1rem;
+  }
+  
+  /* Optional: Add hover effect for better user experience */
+  .radio-tile:hover {
+	background-color: #f8f9fa; /* Light gray background on hover */
+  }
+  
+
+.radio-tile-label {
+	text-align: center;
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+/* //active tile styles */
+.radio-button:checked + .radio-tile {
+	background-color: var(--bs-success);
+	border: 1px solid var(--bs-green);
+	color: var(--bs-white);
+}
+
+#time {
+	font-size: 3.5rem;
+}
+
+#date {
+	font-size: 1.2rem;
+}

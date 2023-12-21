@@ -1,0 +1,207 @@
+<%-include ("../Includes/Admin/head.ejs")%>
+
+    <body>
+        <%-include ("../Includes/Admin/header.ejs")%>
+            <!-- ======= Sidebar ======= -->
+            <aside id="sidebar" class="sidebar">
+                <ul class="sidebar-nav" id="sidebar-nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/dashboard">
+                            <i class="bi bi-columns-gap"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/students">
+                            <i class="bi bi-people"></i>
+                            <span>Manage Students</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/faculty">
+                          <i class="bi bi-person-vcard"></i>
+                          <span>Manage Faculty</span>
+                        </a>
+                      </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/attendance">
+                            <i class="bi bi-table"></i>
+                            <span>Attendance</span>
+                        </a>
+                    </li>
+                    <!-- End Dashboard Nav -->
+                    </li><!-- End Components Nav -->
+
+                    <li class="nav-item">
+                        <a class="nav-link " data-bs-target="#book-nav" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-book-half"></i><span>Books</span><i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="book-nav" class="nav-content collapse show " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="/admin/all_books" class="active">
+                                    <i class="bi bi-circle"></i><span>All Books</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/issued_books">
+                                    <i class="bi bi-circle"></i><span>Currently Issued</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/issue_request">
+                                    <i class="bi bi-circle"></i><span>Issued Request</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/renew_request">
+                                    <i class="bi bi-circle"></i><span>Renew Request</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/return_request">
+                                    <i class="bi bi-circle"></i><span>Return Request</span>
+                                </a>
+                            </li>
+
+
+                            <li>
+                                <a href="/admin/recommendations">
+                                    <i class="bi bi-check-circle"></i>
+                                    <span>Recommendations</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/messages">
+                            <i class="bi bi-chat"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </aside>
+            <!-- End Sidebar-->
+            <main id="main" class="main">
+
+                <section class="section profile">
+                    <div class="row">
+
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-body pt-3">
+                                    <!-- Bordered Tabs -->
+                                    <div class="profile-overview" id="profile-overview">
+                                        <h5 class="card-title">Edit Book Information</h5>
+                                        <form method="post" action="/admin/books/edit"
+                                            class="row gy-2 gx-3 needs-validation" novalidate
+                                            enctype="multipart/form-data">
+
+                                            <div class="col-12">
+                                                <label for="fullname" class="form-label">Book ID</label>
+                                                <input type="text" class="form-control" id="bookid" name="id" readonly
+                                                    value="<%=book.id%>">
+
+                                            </div>
+
+                                            <div class="col-12">
+                                                <label for="title" class="form-label">Title</label>
+                                                <input type="text" class="form-control" id="title" name="title" required
+                                                    value="<%=book.title%>">
+                                                <div class="invalid-feedback">
+                                                    Please enter title
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="author" class="form-label">Author</label>
+                                                <input type="text" class="form-control" id="author" name="author"
+                                                    required value="<%=book.author%>">
+                                                <div class="invalid-feedback">
+                                                    Please enter author
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="publication_year" class="form-label">Publication
+                                                    Year</label>
+                                                <input type="text" class="form-control" id="publication_year"
+                                                    name="publication_year" required value="<%=book.publication_year%>">
+                                                <div class="invalid-feedback">
+                                                    Please enter publication year
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="isbn" class="form-label">ISBN</label>
+                                                <input type="text" class="form-control" id="isbn" name="isbn" required
+                                                    value="<%=book.isbn%>">
+                                                <div class="invalid-feedback">
+                                                    Please enter isbn
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-12">
+                                                <label for="genre" class="form-label">Genre</label>
+                                                <input type="text" class="form-control" id="genre" name="genre" required
+                                                    value="<%=book.genre%>">
+                                                <div class="invalid-feedback">
+                                                    Please enter genre
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+
+                                                <label for="textDescription"
+                                                    class="form-label has-validation">Description</label>
+                                                <textarea name="description" class="form-control" id="textDescription"
+                                                    rows="3" required><%=book.description%></textarea>
+                                                <div class="invalid-feedback">
+                                                    Please enter description
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-12">
+                                                <label for="copies_available" class="form-label">Copies
+                                                    Available</label>
+                                                <input type="number" class="form-control" id="copies_available"
+                                                    name="copies_available" required min="1"
+                                                    value="<%=book.copies_available%>">
+                                                <div class="invalid-feedback">
+                                                    Please enter copies available
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="bookImage" class="form-label">Change Book Image</label>
+                                                <input type="file" class="form-control" id="bookImage" name="book_image"
+                                                    accept="image/png, image/jpeg, image/jpg">
+
+                                            </div>
+                                            <div class="col-12 mt-3 ">
+                                                <button type="submit" class="btn btn-primary " id="btn-edit">Edit
+                                                    Book</button>
+                                                <a href="/admin/all_books/" class="btn btn-secondary "
+                                                    id="btn-cancel">Cancel</a>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </section>
+
+            </main>
+            <!-- End #main -->
+            <%-include ("../Includes/Admin/script.ejs")%>
+
+
+
+    </body>
+
+    </html>

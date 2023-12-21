@@ -1,0 +1,366 @@
+<%-include ("../Includes/Admin/head.ejs")%>
+
+  <body>
+    <%-include ("../Includes/Admin/header.ejs")%>
+      <!-- ======= Sidebar ======= -->
+      <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+          <li class="nav-item">
+            <a class="nav-link " href="/admin/dashboard">
+              <i class="bi bi-columns-gap"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="/admin/students">
+              <i class="bi bi-people"></i>
+              <span>Manage Students</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="/admin/faculty">
+              <i class="bi bi-person-vcard"></i>
+              <span>Manage Faculty</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="/admin/attendance">
+              <i class="bi bi-table"></i>
+              <span>Attendance</span>
+            </a>
+          </li>
+          <!-- End Dashboard Nav -->
+          </li><!-- End Components Nav -->
+
+          <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#book-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-book-half"></i><span>Books</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="book-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="/admin/all_books">
+                  <i class="bi bi-circle"></i><span>All Books</span>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/issued_books">
+                  <i class="bi bi-circle"></i><span>Currently Issued</span>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/issue_request">
+                  <i class="bi bi-circle"></i><span>Issued Request</span>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/renew_request">
+                  <i class="bi bi-circle"></i><span>Renew Request</span>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/return_request">
+                  <i class="bi bi-circle"></i><span>Return Request</span>
+                </a>
+              </li>
+
+
+              <li>
+                <a href="/admin/recommendations">
+                  <i class="bi bi-check-circle"></i>
+                  <span>Recommendations</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="/admin/messages">
+              <i class="bi bi-chat"></i>
+              <span>Messages</span>
+            </a>
+          </li>
+
+        </ul>
+      </aside>
+      <!-- End Sidebar-->
+      <main id="main" class="main">
+        <div class="pagetitle">
+          <h1>Dashboard</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </nav>
+        </div>
+        <section class="section profile">
+          <div class="row">
+
+            <div class="col-xl-7">
+              <div class="row">
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="card info-card ">
+
+
+                    <div class="card-body">
+                      <h5 class="card-title">Total User <span>| Current</span></h5>
+
+                      <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                          <i class="bi bi-people"></i>
+                        </div>
+                        <div class="ps-3">
+                          <h2>
+                            <%=total_users%>
+                          </h2>
+
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="card info-card ">
+
+
+                    <div class="card-body">
+                      <h5 class="card-title">Total Books <span>| All time</span></h5>
+
+                      <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                          <i class="bi bi-people"></i>
+                        </div>
+                        <div class="ps-3">
+                          <h2>
+                            <%=total_books%>
+                          </h2>
+
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="card info-card ">
+
+                    <div class="card-body">
+                      <h5 class="card-title">Lend Books <span>| Current</span></h5>
+
+                      <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                          <i class="bi bi-arrow-return-left"></i>
+                        </div>
+                        <div class="ps-3">
+                          <h2>
+                            <%=borrowed_books%>
+                          </h2>
+
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="card info-card ">
+                    <div class="card-body">
+                      <h5 class="card-title">Recent Registered Student</h5>
+                      <table class="table">
+                        <thead>
+                          <th>
+                            No.
+                          </th>
+                          <th>
+                            Student number
+                          </th>
+                          <th>Name</th>
+                          <th>Course</th>
+                          <th>Year & Section</th>
+                        </thead>
+                        <tbody>
+                          <%recent_users_student.forEach((student,index)=> {%>
+                            <tr>
+                              <td>
+                                <%=index + 1%>
+                              </td>
+                              <td>
+                                <%=student.studentnumber%>
+                              </td>
+                              <td>
+                                <%=student.name%>
+                              </td>
+                              <td>
+                                <%=student.course%>
+                              </td>
+                              <td>
+                                <%=student.year_section%>
+                              </td>
+                            </tr>
+                            <%})%>
+                        </tbody>
+                      </table>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="card info-card ">
+                    <div class="card-body">
+                      <h5 class="card-title">Recent Registered Faculty</h5>
+                      <table class="table">
+                        <thead>
+                          <th>
+                            No.
+                          </th>
+                          <th>
+                            Faculty number
+                          </th>
+                          <th>Name</th>
+
+                        </thead>
+                        <tbody>
+                          <%recent_users_faculty.forEach((faculty,index)=> {%>
+                            <tr>
+                              <td>
+                                <%=index + 1%>
+                              </td>
+                              <td>
+                                <%=faculty.facultynumber%>
+                              </td>
+                              <td>
+                                <%=faculty.name%>
+                              </td>
+
+                            </tr>
+                            <%})%>
+                        </tbody>
+                      </table>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="card info-card ">
+                    <div class="card-body">
+                      <h5 class="card-title">Recent Added Books</h5>
+                      <div class="table-responsive-md">
+                        <table class="table">
+                          <thead>
+                            <th>
+                              No.
+                            </th>
+                            <th>
+                              Title
+                            </th>
+                            <th>Author</th>
+                            <th>Publication Year</th>
+                            <th>ISBN</th>
+                            <th>Copies Available</th>
+                          </thead>
+                          <tbody>
+                            <%recent_books.forEach((book,index)=> {%>
+                              <tr>
+                                <td>
+                                  <%=index + 1%>
+                                </td>
+                                <td>
+                                  <%=book.title%>
+                                </td>
+                                <td>
+                                  <%=book.author%>
+                                </td>
+                                <td>
+                                  <%=book.publication_year%>
+                                </td>
+                                <td>
+                                  <%=book.isbn%>
+                                </td>
+                                <td>
+                                  <%=book.copies_available%>
+                                </td>
+                              </tr>
+                              <%})%>
+                          </tbody>
+                        </table>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+            <div class="col-xl-5">
+              <div class="card">
+                <div class="card-body pt-3">
+                  <div class="profile-overview" id="profile-overview">
+                    <h4 class="card-title">Recent Recommendations</h4>
+                    <div class="activity">
+                      <% if (recommendations && recommendations.length> 0) { %>
+                        <% recommendations.forEach((recommendation, index)=> { %>
+                          <div class="activity-item d-flex mb-2">
+                            <% function timeAgo(date) { const currentDate=new Date(); const inputDate=new Date(date);
+                              const timeDifference=currentDate - inputDate; const seconds=Math.floor(timeDifference /
+                              1000); const minutes=Math.floor(seconds / 60); const hours=Math.floor(minutes / 60); const
+                              days=Math.floor(hours / 24); const weeks=Math.floor(days / 7); if (weeks> 0) {
+                              return `${weeks} ${weeks === 1 ? 'week' : 'weeks'}`;
+                              } else if (days > 0) {
+                              return `${days} ${days === 1 ? 'day' : 'days'}`;
+                              } else if (hours > 0) {
+                              return `${hours} ${hours === 1 ? 'hr' : 'hrs'}`;
+                              } else if (minutes > 0) {
+                              return `${minutes} ${minutes === 1 ? 'min' : 'min'}`;
+                              } else {
+                              return `${seconds} ${seconds === 1 ? 's' : 's'}`;
+                              }
+                              }
+                              %>
+                              <% if (index !==recommendations.length - 1) { %>
+                                <div class="activite-label">
+                                  <%= timeAgo(recommendation.date_submitted) %>
+                                </div>
+                                <% } else { %>
+                                  <div class="activite-label-1">
+                                    <%= timeAgo(recommendation.date_submitted) %>
+                                  </div>
+                                  <% } %>
+
+                                    <i class="bi bi-circle-fill activity-badge text-success align-items-center"></i>
+                                    <div class="activity-content ps-3">
+                                      <p class="small">
+                                        <%=recommendation.user_id%> has recommend book title <span class="fw-bold">
+                                            <%=recommendation.book_name %>
+                                          </span>
+
+                                      </p>
+                                    </div>
+                          </div>
+                          <% }); %>
+                            <% } else { %>
+                              <p class="text-muted">No recommendations yet</p>
+                              <% } %>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+      <!-- End #main -->
+      <%-include ("../Includes/Admin/script.ejs")%>
+
+  </body>
+
+  </html>

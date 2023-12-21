@@ -1,0 +1,172 @@
+<%-include ("../Includes/Admin/head.ejs")%>
+
+    <body>
+        <%-include ("../Includes/Admin/header.ejs")%>
+            <!-- ======= Sidebar ======= -->
+            <aside id="sidebar" class="sidebar">
+                <ul class="sidebar-nav" id="sidebar-nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/dashboard">
+                            <i class="bi bi-columns-gap"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/students">
+                            <i class="bi bi-people"></i>
+                            <span>Manage Students</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/faculty">
+                          <i class="bi bi-person-vcard"></i>
+                          <span>Manage Faculty</span>
+                        </a>
+                      </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/attendance">
+                          <i class="bi bi-table"></i>
+                          <span>Attendance</span>
+                        </a>
+                      </li>
+                    <!-- End Dashboard Nav -->
+                    </li><!-- End Components Nav -->
+
+                    <li class="nav-item">
+                        <a class="nav-link " data-bs-target="#book-nav" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-book-half"></i><span>Books</span><i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="book-nav" class="nav-content collapse show " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="/admin/all_books" class="active">
+                                    <i class="bi bi-circle"></i><span>All Books</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/issued_books">
+                                    <i class="bi bi-circle"></i><span>Currently Issued</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/issue_request">
+                                    <i class="bi bi-circle"></i><span>Issued Request</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/renew_request">
+                                    <i class="bi bi-circle"></i><span>Renew Request</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/return_request">
+                                    <i class="bi bi-circle"></i><span>Return Request</span>
+                                </a>
+                            </li>
+
+
+                            <li>
+                                <a href="/admin/recommendations">
+                                    <i class="bi bi-check-circle"></i>
+                                    <span>Recommendations</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/messages">
+                            <i class="bi bi-chat"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </aside>
+            <!-- End Sidebar-->
+            <main id="main" class="main">
+
+                <section class="section profile">
+                    <div class="row">
+
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-body pt-3">
+                                    <!-- Bordered Tabs -->
+                                    <div class="profile-overview" id="profile-overview">
+                                        <h5 class="card-title">View Book Information</h5>
+                                        <h4 class="mb-2">
+                                            Book ID : <%=book.id%>
+                                        </h4>
+                                        <h6 class="mb-2">
+                                            Title : <span class="fw-bold">
+                                                <%=book.title%>
+                                            </span>
+
+                                        </h6>
+                                        <h6 class="mb-2">
+                                            Author : <span class="fw-bold">
+                                                <%=book.author%>
+                                            </span>
+
+                                        </h6>
+                                        <h6 class="mb-2">
+                                            Year : <span class="fw-bold">
+                                                <%=book.publication_year%>
+                                            </span>
+
+                                        </h6>
+                                        <h6 class="mb-2">
+                                            ISBN : <span class="fw-bold">
+                                                <%=book.isbn%>
+                                            </span>
+
+                                        </h6>
+                                        <h6 class="mb-2">
+                                            Genre : <span class="fw-bold">
+                                                <%=book.genre%>
+                                            </span>
+
+                                        </h6>
+                                        <h6 class="mb-2">
+                                            Description :<span class="fw-bold">
+                                                <%=book.description%>
+                                            </span>
+
+                                        </h6>
+                                        <h6 class="mb-2">
+                                            Copies Available : <span class="fw-bold">
+                                                <%=book.copies_available%>
+                                            </span>
+
+                                        </h6>
+                                       
+                                        <h6 class="mb-2">
+                                            Created Date: <span class="fw-bold">
+                                                <%=book.created_at.toLocaleString('en-US', { year: 'numeric' ,
+                                                    month: 'long' , day: 'numeric' , hour: 'numeric' , minute: 'numeric'
+                                                    , hour12: true }) %></span>
+
+                                        </h6>
+                                        <div class="mt-3">
+                                            <img src="/img/book/<%=book.cover_image_url%>" alt="" height="300" width="300">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </section>
+
+            </main>
+            <!-- End #main -->
+            <%-include ("../Includes/Admin/script.ejs")%>
+
+
+
+    </body>
+
+    </html>

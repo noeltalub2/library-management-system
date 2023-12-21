@@ -1,0 +1,125 @@
+<%-include ("../Includes/Faculty/head.ejs")%>
+
+    <body>
+        <%-include ("../Includes/Faculty/header.ejs")%>
+            <!-- ======= Sidebar ======= -->
+            <aside id="sidebar" class="sidebar">
+                <ul class="sidebar-nav" id="sidebar-nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/faculty/dashboard">
+                            <i class="bi bi-columns-gap"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <!-- End Dashboard Nav -->
+                    </li><!-- End Components Nav -->
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" data-bs-target="#book-nav" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-book-half"></i><span>My Books</span><i
+                                class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="book-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="/faculty/all_books">
+                                    <i class="bi bi-circle"></i><span>All Books</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/faculty/borrowed_books">
+                                    <i class="bi bi-circle"></i><span>Previously Borrowed</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/faculty/issued_books">
+                                    <i class="bi bi-circle"></i><span>Currently Issued</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/faculty/attendance">
+                            <i class="bi bi-table"></i>
+                            <span>Attendance</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/faculty/messages">
+                            <i class="bi bi-chat"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/faculty/recommendations">
+                            <i class="bi bi-check-circle"></i>
+                            <span>Recommendation</span>
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+            <!-- End Sidebar-->
+            <main id="main" class="main">
+                <div class="pagetitle">
+                    <h1>Messages</h1>
+                    <nav>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/faculty/dashboard">Home</a></li>
+                            <li class="breadcrumb-item active">Messages</li>
+                        </ol>
+                    </nav>
+                </div>
+                <section class="section messages">
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Show All Messages</h5>
+                                <div class="table-responsive-md">
+                                    <table id="messageTable" class="table table-hover" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Date</th>
+                                                <th>Message</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% messages.forEach((message, index)=> { %>
+                                                <tr>
+                                                    <td><%=index + 1%></td>
+                                                    <td>
+                                                        <%= message.date.toLocaleString('en-US', { year: 'numeric' ,
+                                                            month: 'long' , day: 'numeric' , hour: 'numeric' ,
+                                                            minute: 'numeric' , hour12: true }) %>
+                                                    </td>
+                                                    <td class="col-8">
+                                                        <%= message.content %>
+                                                    </td>
+                                                </tr>
+                                                <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+            <!-- End #main -->
+            <!-- End #main -->
+            <%-include ("../Includes/Faculty/script.ejs")%>
+
+                <script>
+                    $(document).ready(function () {
+                        $('#messageTable').DataTable({
+                        
+                        });
+                    });
+                </script>
+
+    </body>
+
+    </html>

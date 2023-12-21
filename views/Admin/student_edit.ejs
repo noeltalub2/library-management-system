@@ -1,0 +1,246 @@
+<%-include ("../Includes/Admin/head.ejs")%>
+
+  <body>
+    <%-include ("../Includes/Admin/header.ejs")%>
+      <!-- ======= Sidebar ======= -->
+      <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="/admin/dashboard">
+              <i class="bi bi-columns-gap"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link " href="/admin/students">
+              <i class="bi bi-people"></i>
+              <span>Manage Students</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="/admin/faculty">
+              <i class="bi bi-person-vcard"></i>
+              <span>Manage Faculty</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="/admin/attendance">
+              <i class="bi bi-table"></i>
+              <span>Attendance</span>
+            </a>
+          </li>
+          <!-- End Dashboard Nav -->
+          </li><!-- End Components Nav -->
+
+          <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#book-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-book-half"></i><span>Books</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="book-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="/admin/all_books">
+                  <i class="bi bi-circle"></i><span>All Books</span>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/issued_books">
+                  <i class="bi bi-circle"></i><span>Currently Issued</span>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/issue_request">
+                  <i class="bi bi-circle"></i><span>Issued Request</span>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/renew_request">
+                  <i class="bi bi-circle"></i><span>Renew Request</span>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/return_request">
+                  <i class="bi bi-circle"></i><span>Return Request</span>
+                </a>
+              </li>
+
+
+              <li>
+                <a href="/admin/recommendations">
+                  <i class="bi bi-check-circle"></i>
+                  <span>Recommendations</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="/admin/messages">
+              <i class="bi bi-chat"></i>
+              <span>Messages</span>
+            </a>
+          </li>
+
+        </ul>
+      </aside>
+      <!-- End Sidebar-->
+      <main id="main" class="main">
+        <div class="pagetitle">
+          <h1>Student</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
+              <li class="breadcrumb-item active">Manage Student</li>
+            </ol>
+          </nav>
+        </div>
+        <section class="section profile">
+          <div class="row">
+
+            <div class="col-xl-8">
+
+              <div class="card">
+                <div class="card-body pt-3">
+                  <!-- Bordered Tabs -->
+                  <div class="profile-overview" id="profile-overview">
+                    <h5 class="card-title">Edit Student Information</h5>
+
+                    <form method="post" action="/admin/student/edit" class="row gy-2 gx-3 needs-validation" novalidate>
+                      <div class="col-md-12">
+                        <label for="studentnumber" class="form-label">Student Number</label>
+                        <input type="text" class="form-control" id="studentnumber" name="studentnumber" minlength="9"
+                          maxlength="9" readonly value="<%=student.studentnumber%>">
+                        <div class="invalid-feedback">
+                          Please enter your student number
+                        </div>
+
+                      </div>
+                      <div class="col-12">
+                        <label for="fullname" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="fullname" name="name" minlength="2" required
+                          value="<%=student.name%>">
+                        <div class="invalid-feedback">
+                          Please enter your fullname
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required
+                          value="<%=student.email%>">
+                        <div class="invalid-feedback">
+                          Please enter a valid email address
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="phonenumber" class="form-label">Phone Number</label>
+                          <input type="tel" class="form-control" id="phonenumber" name="phonenumber" minlength="11"
+                            maxlength="11" required value="<%=student.phonenumber%>">
+                          <div class="invalid-feedback">
+                            Please enter a valid phone number
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select class="form-select" name="gender" id="gender" aria-describedby="genderFeedback"
+                          required>
+                          <option value="Male" <%=student.gender==='Male' ? 'selected' : '' %>>Male</option>
+                          <option value="Female" <%=student.gender==='Female' ? 'selected' : '' %>>Female</option>
+                        </select>
+                        <div id="genderFeedback" class="invalid-feedback">
+                          Please select your gender.
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <label for="course" class="form-label">Course</label>
+                        <select class="form-select" name="course" id="course" aria-describedby="courseFeedback"
+                          required>
+                          <option value="" hidden>Select a Course</option>
+                          <option value="BAT" <%=student.course==='BAT' ? 'selected' : '' %>>Bachelor in Automotive
+                            Technology</option>
+                          <option value="CADT" <%=student.course==='CADT' ? 'selected' : '' %>>BSIT in Civil & Drafting
+                            Technology</option>
+                          <option value="CMPT" <%=student.course==='CMPT' ? 'selected' : '' %>>BSIT in Computer
+                            Technology</option>
+                          <option value="ELTR" <%=student.course==='ELTR' ? 'selected' : '' %>>BSIT in Electrical
+                            Technology</option>
+                          <option value="EXTR" <%=student.course==='EXTR' ? 'selected' : '' %>>BSIT in Electronics
+                            Technology</option>
+                          <option value="FPSM" <%=student.course==='FPSM' ? 'selected' : '' %>>BSIT in Food Processing &
+                            Service Mgt</option>
+                          <option value="GT" <%=student.course==='GT' ? 'selected' : '' %>>BSIT in Garments Technology
+                          </option>
+                        </select>
+                        <div id="courseFeedback" class="invalid-feedback">
+                          Please select a course.
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <label for="year_section" class="form-label">Year & Section</label>
+                        <select class="form-select" name="year_section" id="year_section"
+                          aria-describedby="year_sectionFeedback" required>
+                          <option value="1-A" <%=student.year_section==='1-A' ? 'selected' : '' %>>1 - A</option>
+                          <option value="1-B" <%=student.year_section==='1-B' ? 'selected' : '' %>>1 - B</option>
+                          <option value="1-C" <%=student.year_section==='1-C' ? 'selected' : '' %>>1 - C</option>
+                          <option value="2-A" <%=student.year_section==='2-A' ? 'selected' : '' %>>2 - A</option>
+                          <option value="2-B" <%=student.year_section==='2-B' ? 'selected' : '' %>>2 - B</option>
+                          <option value="2-C" <%=student.year_section==='2-C' ? 'selected' : '' %>>2 - C</option>
+                          <option value="3-A" <%=student.year_section==='3-A' ? 'selected' : '' %>>3 - A</option>
+                          <option value="3-B" <%=student.year_section==='3-B' ? 'selected' : '' %>>3 - B</option>
+                          <option value="3-C" <%=student.year_section==='3-C' ? 'selected' : '' %>>3 - C</option>
+                          <option value="4-A" <%=student.year_section==='4-A' ? 'selected' : '' %>>4 - A</option>
+                          <option value="4-B" <%=student.year_section==='4-B' ? 'selected' : '' %>>4 - B</option>
+                          <option value="4-C" <%=student.year_section==='4-C' ? 'selected' : '' %>>4 - C</option>
+                          <!-- Add more options as needed -->
+                        </select>
+                        <div id="year_sectionFeedback" class="invalid-feedback">
+                          Please select your year and section.
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <label for="is_verified" class="form-label">Gender</label>
+                        <select class="form-select" name="is_verified" id="is_verified" aria-describedby="isVerifiedFeedback"
+                          required>
+                          <option value="0" <%=student.is_verified==='0' ? 'selected' : '' %>>Not Verified</option>
+                          <option value="1" <%=student.is_verified==='1' ? 'selected' : '' %>>Verify</option>
+                        </select>
+                        <div id="isVerifiedFeedback" class="invalid-feedback">
+                          Please select your option.
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <label for="password" class="form-label">New Password</label>
+                        <input type="password" class="form-control" id="password" name="password"
+                          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                        <div class="invalid-feedback">
+                          Must contain at least one number and one uppercase and lowercase
+                          letter,
+                          and at
+                          least 8 or more characters
+                        </div>
+                      </div>
+
+
+                      <div class="col-12 mt-3 ">
+                        <button type="submit" class="btn btn-primary " id="btn-edit">Edit Account</button>
+                        <a href="/admin/students/" class="btn btn-secondary " id="btn-cancel">Cancel</a>
+                      </div>
+
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+      </main>
+      <!-- End #main -->
+      <%-include ("../Includes/Admin/script.ejs")%>
+
+  </body>
+
+  </html>

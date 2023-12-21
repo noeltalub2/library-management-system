@@ -1,0 +1,269 @@
+<%-include ("../Includes/Student/head.ejs")%>
+
+  <body>
+    <%-include ("../Includes/Student/header.ejs")%>
+      <!-- ======= Sidebar ======= -->
+      <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+          <li class="nav-item">
+            <a class="nav-link " href="/dashboard">
+              <i class="bi bi-columns-gap"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <!-- End Dashboard Nav -->
+          </li><!-- End Components Nav -->
+
+          <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#book-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-book-half"></i><span>My Books</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="book-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="/all_books">
+                  <i class="bi bi-circle"></i><span>All Books</span>
+                </a>
+              </li>
+              <li>
+                <a href="/borrowed_books">
+                  <i class="bi bi-circle"></i><span>Previously Borrowed</span>
+                </a>
+              </li>
+              <li>
+                <a href="/issued_books">
+                  <i class="bi bi-circle"></i><span>Currently Issued</span>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="/attendance">
+              <i class="bi bi-table"></i>
+              <span>Attendance</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="/messages">
+              <i class="bi bi-chat"></i>
+              <span>Messages</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="/recommendations">
+              <i class="bi bi-check-circle"></i>
+              <span>Recommendation</span>
+            </a>
+          </li>
+        </ul>
+      </aside>
+      <!-- End Sidebar-->
+      <main id="main" class="main">
+        <div class="pagetitle">
+          <h1>Dashboard</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </nav>
+        </div>
+        <section class="section profile">
+          <div class="row">
+
+            <div class="col-xl-7">
+              <div class="row">
+
+
+                <div class="col-xxl-6 col-md-6">
+                  <div class="card info-card ">
+
+
+                    <div class="card-body">
+                      <h5 class="card-title">Borrowed Book <span>| Current</span></h5>
+
+                      <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                          <i class="bi bi-book"></i>
+                        </div>
+                        <div class="ps-3">
+                          <h2><%=borrowed_book%></h2>
+                        
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-xxl-6 col-md-6">
+                  <div class="card info-card ">
+
+
+                    <div class="card-body">
+                      <h5 class="card-title">Returned Book <span>| All time</span></h5>
+
+                      <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                          <i class="bi bi-arrow-return-left"></i>
+                        </div>
+                        <div class="ps-3">
+                          <h2><%=return_book%></h2>
+                        
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body pt-3">
+                  <!-- Bordered Tabs -->
+
+                  <div class="profile-overview" id="profile-overview">
+                    <h4 class="card-title">Profile Details</h4>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label ">Name</div>
+                      <div class="col-lg-9 col-md-8">
+                        <%=student.name%>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label ">Student Number</div>
+                      <div class="col-lg-9 col-md-8">
+                        <%=student.studentnumber%>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label ">Email</div>
+                      <div class="col-lg-9 col-md-8">
+                        <%=student.email%>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Phone Number</div>
+                      <div class="col-lg-9 col-md-8">
+                        <%=student.phonenumber%>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Gender</div>
+                      <div class="col-lg-9 col-md-8">
+                        <%=student.gender%>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Course</div>
+                      <div class="col-lg-9 col-md-8">
+                        <%=student.course%>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Year & Section</div>
+                      <div class="col-lg-9 col-md-8">
+                        <%=student.year_section%>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Joined Date</div>
+                      <div class="col-lg-9 col-md-8">
+                        <%=student.join_date%>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-xl-5">
+              <div class="card">
+                <div class="card-body pt-3">
+                  <div class="profile-overview" id="profile-overview">
+                    <h4 class="card-title">Recent Messages</h4>
+                    <div class="activity">
+                      <% if (messages && messages.length> 0) { %>
+                        <% messages.forEach((message, index)=> { %>
+                          <div class="activity-item d-flex mb-2">
+                            <% function timeAgo(date) { const currentDate=new Date(); const inputDate=new Date(date);
+                              const timeDifference=currentDate - inputDate; const seconds=Math.floor(timeDifference /
+                              1000); const minutes=Math.floor(seconds / 60); const hours=Math.floor(minutes / 60); const
+                              days=Math.floor(hours / 24); const weeks=Math.floor(days / 7); if (weeks> 0) {
+                              return `${weeks} ${weeks === 1 ? 'week' : 'weeks'}`;
+                              } else if (days > 0) {
+                              return `${days} ${days === 1 ? 'day' : 'days'}`;
+                              } else if (hours > 0) {
+                              return `${hours} ${hours === 1 ? 'hr' : 'hrs'}`;
+                              } else if (minutes > 0) {
+                              return `${minutes} ${minutes === 1 ? 'min' : 'min'}`;
+                              } else {
+                              return `${seconds} ${seconds === 1 ? 's' : 's'}`;
+                              }
+                              }
+                              %>
+                              <% if (index !==messages.length - 1) { %>
+                                <div class="activite-label">
+                                  <%= timeAgo(message.date) %>
+                                </div>
+                                <% } else { %>
+                                  <div class="activite-label-1">
+                                    <%= timeAgo(message.date) %>
+                                  </div>
+                                  <% } %>
+
+                                    <% if (message.content.includes("rejected")) { %>
+                                      <!-- Apply danger styling for "rejected" -->
+                                      <i class="bi bi-circle-fill activity-badge text-danger align-items-center"></i>
+                                      <% } else if (message.content.includes("approved")) { %>
+                                        <!-- Apply success styling for "approved" -->
+                                        <i class="bi bi-circle-fill activity-badge text-success align-items-center"></i>
+                                        <% } else if (message.content.includes("issued book")) { %>
+                                          <!-- Apply your styling for "issued book" -->
+                                          <i
+                                            class="bi bi-circle-fill activity-badge text-warning align-items-center"></i>
+                                          <% } else if (message.content.includes("request")) { %>
+                                            <!-- Apply warning styling for "request" -->
+                                            <i
+                                              class="bi bi-circle-fill activity-badge text-warning align-items-center"></i>
+                                            <% } else if (message.content.includes("Admin")) { %>
+                                              <!-- Apply warning styling for "request" -->
+                                              <i
+                                                class="bi bi-circle-fill activity-badge text-secondary align-items-center"></i>
+                                              <% } %> %>
+
+                                              <div class="activity-content ps-3">
+                                                <p class="small">
+                                                  <%= message.content %>
+                                                </p>
+                                              </div>
+                          </div>
+                          <% }); %>
+                            <% } else { %>
+                              <p class="text-muted">You have no messages</p>
+                              <% } %>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+      <!-- End #main -->
+      <%-include ("../Includes/Student/script.ejs")%>
+
+  </body>
+
+  </html>

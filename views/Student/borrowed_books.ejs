@@ -1,0 +1,161 @@
+<%-include ("../Includes/Student/head.ejs")%>
+
+    <body>
+        <%-include ("../Includes/Student/header.ejs")%>
+            <!-- ======= Sidebar ======= -->
+            <aside id="sidebar" class="sidebar">
+                <ul class="sidebar-nav" id="sidebar-nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/dashboard">
+                            <i class="bi bi-columns-gap"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <!-- End Dashboard Nav -->
+                    </li><!-- End Components Nav -->
+
+                    <li class="nav-item">
+                        <a class="nav-link " data-bs-target="#book-nav" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-book-half"></i><span>My Books</span><i
+                                class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="book-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="/all_books">
+                                    <i class="bi bi-circle"></i><span>All Books</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/borrowed_books" class="active">
+                                    <i class="bi bi-circle"></i><span>Previously Borrowed</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/issued_books">
+                                    <i class="bi bi-circle"></i><span>Currently Issued</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/attendance">
+                            <i class="bi bi-table"></i>
+                            <span>Attendance</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/messages">
+                            <i class="bi bi-chat"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/recommendations">
+                            <i class="bi bi-check-circle"></i>
+                            <span>Recommendation</span>
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+            <!-- End Sidebar-->
+            <main id="main" class="main">
+                <div class="pagetitle">
+                    <h1>Borrowed Books</h1>
+                    <nav>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                            <li class="breadcrumb-item active">Borrowed Books</li>
+                        </ol>
+                    </nav>
+                </div>
+                <section class="section dashboard">
+
+
+                    <div class="row">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <h5 class="card-title">Borrowed Books</h5>
+                                <%-include ("../Includes/Student/message.ejs")%>
+                                    <div class="table-responsive-md">
+                                        <table id="allBorrowTable" class="table table-bordered table-sm"
+                                            style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>Title</th>
+                                                    <th>Author</th>
+                                                    <th>Issued Date</th>
+                                                    <th>Returned Date</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% previouslyBorrowedBooks.forEach((book,index)=> { %>
+                                                    <tr>
+                                                        <td>
+                                                            <%=index + 1%>
+                                                        </td>
+                                                        <td>
+                                                            <%= book.title %>
+                                                        </td>
+                                                        <td>
+                                                            <%= book.author %>
+                                                        </td>
+                                                        <td>
+                                                            <% if (book.issue_date) { %>
+                                                                <%= book.issue_date.toLocaleString('en-US', {
+                                                                    year: 'numeric' , month: 'long' , day: 'numeric' ,
+                                                                    hour: 'numeric' , minute: 'numeric' , hour12: true
+                                                                    }) %>
+                                                                    <% } else { %>
+                                                                        <!-- Handle the case when issue_date is null or undefined -->
+                                                                        N/A
+                                                                        <% } %>
+                                                        </td>
+                                                        <td>
+                                                            <% if (book.returned_date) { %>
+                                                                <%= book.returned_date.toLocaleString('en-US', {
+                                                                    year: 'numeric' , month: 'long' , day: 'numeric' ,
+                                                                    hour: 'numeric' , minute: 'numeric' , hour12: true
+                                                                    }) %>
+                                                                    <% } else { %>
+                                                                        <!-- Handle the case when returned_date is null or undefined -->
+                                                                        N/A
+                                                                        <% } %>
+                                                        </td>
+                                                        <td>
+                                                            <% if (book.status==="RETURN_APPROVED" ) { %>
+                                                                <span class="badge bg-success">Returned</span>
+                                                                <% } else if (book.status==="ISSUED_REJECTED" ) { %>
+                                                                    <span class="badge bg-danger">Rejected</span>
+                                                                    <%}%>
+                                                        </td>
+                                                    </tr>
+                                                    <% }); %>
+
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </section>
+
+            </main>
+            <!-- End #main -->
+            <%-include ("../Includes/Student/script.ejs")%>
+                <script>
+                    $(document).ready(function () {
+                        $('#allBorrowTable').DataTable();
+                    });
+                </script>
+
+    </body>
+
+    </html>

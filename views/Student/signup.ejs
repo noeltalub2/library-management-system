@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="shortcut icon" href="/img/cit_logo.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/020dbcd45c.js" crossorigin="anonymous"></script>
+    <title>Sign Up</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-light bg-white navbar-expand-md py-1">
+            <div class="container-lg">
+                <a class="navbar-brand" href="/">
+                    <img src="/img/mmsu_logo.png" height="45" alt="image">
+                    <img src="/img/cit_logo.png" height="40" alt="image">
+
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav3"
+                    aria-controls="navbarNav3" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav3">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Scan Barcode</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signup">Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-success ms-md-2" href="/signin">Sign In</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main id="main">
+        <div class="container-lg">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-6 col-md-6">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="pt-3 pb-2">
+                                <h5 class="card-title text-center pb-0 fs-3">Create an account</h5>
+                                <p class="text-center small">Enter your information details</p>
+                            </div>
+                            <%-include ("../Includes/message.ejs")%>
+                                <form method="post" class="row gy-2 gx-3 needs-validation" novalidate>
+
+                                    <div class="col-12">
+                                        <label for="fullname" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="fullname" name="name" minlength="2"
+                                            required autofocus>
+                                        <div class="invalid-feedback">
+                                            Please enter your fullname
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                        <div class="invalid-feedback">
+                                            Please enter a valid email address
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="phonenumber" class="form-label">Phone Number</label>
+                                            <input type="tel" class="form-control" id="phonenumber" name="phonenumber"
+                                                minlength="11" maxlength="11" required>
+                                            <div class="invalid-feedback">
+                                                Please enter a valid phone number
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="gender" class="form-label">Gender</label>
+                                        <select class="form-select" name="gender" id="gender"
+                                            aria-describedby="genderFeedback" required="">
+                                            <option selected="" hidden=""></option>
+
+                                            <option value="Male">Male</option>
+
+                                            <option value="Female">Female</option>
+
+
+                                        </select>
+                                        <div id="genderFeedback" class="invalid-feedback">
+                                            Please select your gender.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="course" class="form-label">Course</label>
+                                        <select class="form-select" name="course" id="course"
+                                            aria-describedby="courseFeedback" required="">
+                                            <option selected="" hidden=""></option>
+
+                                            <option value="BAT">Bachelor in Automotive Technology</option>
+
+                                            <option value="CADT">BSIT in Civil & Drafting Technology</option>
+
+                                            <option value="CMPT">BSIT in Computer Technology</option>
+
+                                            <option value="ELTR">BSIT in Electrical Technology</option>
+
+                                            <option value="EXTR">BSIT in Electronics Technology</option>
+
+                                            <option value="FPSM">BSIT in Food Processing & Service Mgt</option>
+
+                                            <option value="GT">BSIT in Garments Technology</option>
+
+                                        </select>
+                                        <div id="courseFeedback" class="invalid-feedback">
+                                            Please select a course.
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="year_section" class="form-label">Year & Section</label>
+                                        <select class="form-select" name="year_section" id="year_section"
+                                            aria-describedby="year_sectionFeedback" required="">
+                                            <option selected="" hidden=""></option>
+
+                                            <option value="1-A">1 - A</option>
+                                            <option value="1-B">1 - B</option>
+                                            <option value="1-C">1 - C</option>
+
+                                            <option value="2-A">2 - A</option>
+                                            <option value="2-B">2 - B</option>
+                                            <option value="2-C">2 - C</option>
+
+                                            <option value="3-A">3 - A</option>  
+                                            <option value="3-B">3 - B</option>
+                                            <option value="3-C">3 - C</option>
+
+                                            <option value="4-A">4 - A</option>
+                                            <option value="4-B">4 - B</option>
+                                            <option value="4-C">4 - C</option>
+
+
+                                        </select>
+                                        <div id="year_sectionFeedback" class="invalid-feedback">
+                                            Please select your gender.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="studentnumber" class="form-label">Student Number</label>
+                                        <input type="text" class="form-control" id="studentnumber" name="studentnumber"
+                                            minlength="9" maxlength="9" required>
+                                        <div class="invalid-feedback">
+                                            Please enter your student number
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password"
+                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                        <div class="invalid-feedback">
+                                            Must contain at least one number and one uppercase and lowercase
+                                            letter,
+                                            and at
+                                            least 8 or more characters
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-3 ">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+                                            required>
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            I have reviewed and agreed to <a type="button" class="link-primary"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                Data Privacy Act of 2012
+                                            </a>
+
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-scrollable">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Data
+                                                                Privacy Act of 2012</h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+
+                                                                <small class="text-muted mb-3">By submitting this form,
+                                                                    you
+                                                                    agree to the collection and processing of your
+                                                                    personal
+                                                                    data in accordance with the policies of the Mariano
+                                                                    Marcos State University. The consent does not
+                                                                    preclude
+                                                                    the existence of other criteria for lawful
+                                                                    processing of
+                                                                    personal data and does not waive any rights under
+                                                                    the
+                                                                    Data Privacy Act of 2012 and other applicable
+                                                                    laws.</small>
+
+                                                                <p>I undetake to abide the lawful processing of personal
+                                                                    data as mandated by the provisions of the Data
+                                                                    Privact
+                                                                    Act of 2012, it's implementing rules and regulations
+                                                                    as
+                                                                    well as the policies of the Mariano Marcos State
+                                                                    University (MMSU) and the Accrediting Agency of
+                                                                    Chartered Colleges and Universities in the
+                                                                    Philippines
+                                                                    (AACCUP) </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <div class="invalid-feedback">
+                                            Please check to this checkbox to procced
+                                        </div>
+
+                                    </div>
+                                    <div class="col-12 mt-3 ">
+                                        <button type="submit" class="btn btn-primary w-100" id="btn-reg">Create
+                                            Account</button>
+                                    </div>
+                                    <div class="col-12 mt-2 mb-2">
+                                        <p class="text-dark text-center">Already have an account? <a
+                                                class="text-decoration-none text-primary" href="/signin">Sign In</a></p>
+                                    </div>
+
+                                </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/validator.js"></script>
+</body>
+
+</html>

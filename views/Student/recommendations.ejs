@@ -1,0 +1,121 @@
+<%-include ("../Includes/Student/head.ejs")%>
+
+    <body>
+        <%-include ("../Includes/Student/header.ejs")%>
+            <!-- ======= Sidebar ======= -->
+            <aside id="sidebar" class="sidebar">
+                <ul class="sidebar-nav" id="sidebar-nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/dashboard">
+                            <i class="bi bi-columns-gap"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <!-- End Dashboard Nav -->
+                    </li><!-- End Components Nav -->
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" data-bs-target="#book-nav" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-book-half"></i><span>My Books</span><i
+                                class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="book-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="/all_books">
+                                    <i class="bi bi-circle"></i><span>All Books</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/borrowed_books">
+                                    <i class="bi bi-circle"></i><span>Previously Borrowed</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/issued_books">
+                                    <i class="bi bi-circle"></i><span>Currently Issued</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/attendance">
+                            <i class="bi bi-table"></i>
+                            <span>Attendance</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/messages">
+                            <i class="bi bi-chat"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/recommendations">
+                            <i class="bi bi-check-circle"></i>
+                            <span>Recommendation</span>
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+            <!-- End Sidebar-->
+            <main id="main" class="main">
+                <div class="pagetitle">
+                    <h1>Recommendation</h1>
+                    <nav>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                            <li class="breadcrumb-item active">Recommendation</li>
+                        </ol>
+                    </nav>
+                </div>
+                <section class="section recommendations">
+
+
+                    <div class="row">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Your Recommendation</h5>
+                                <%-include ("../Includes/Student/message.ejs")%>
+                                    <form method="post" class="needs-validation" novalidate>
+                                        <div class="mb-3">
+                                            <label for="bookName" class="form-label has-validation">Book name</label>
+                                            <input type="text" class="form-control" id="bookName" name="book_name"
+                                                required>
+                                            <div class="invalid-feedback">
+                                                Please enter book name
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="author" class="form-label has-validation">Author</label>
+                                            <input type="text" class="form-control" id="author" name="author" required>
+                                            <div class="invalid-feedback">
+                                                Please enter an author
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="textDescription"
+                                                class="form-label has-validation">Description</label>
+                                            <textarea name="description" class="form-control" id="textDescription"
+                                                rows="3" required></textarea>
+                                            <div class="invalid-feedback">
+                                                Please enter description
+                                            </div>
+                                        </div>
+                                        <div class="mb-2">
+                                            <button type="submit" class="btn btn-success">Submit</button>
+                                        </div>
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+            <!-- End #main -->
+            <%-include ("../Includes/Student/script.ejs")%>
+
+    </body>
+
+    </html>

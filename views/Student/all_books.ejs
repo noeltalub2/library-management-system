@@ -1,0 +1,238 @@
+<%-include ("../Includes/Student/head.ejs")%>
+
+    <body>
+        <%-include ("../Includes/Student/header.ejs")%>
+            <!-- ======= Sidebar ======= -->
+            <aside id="sidebar" class="sidebar">
+                <ul class="sidebar-nav" id="sidebar-nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/dashboard">
+                            <i class="bi bi-columns-gap"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <!-- End Dashboard Nav -->
+                    </li><!-- End Components Nav -->
+
+                    <li class="nav-item">
+                        <a class="nav-link " data-bs-target="#book-nav" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-book-half"></i><span>My Books</span><i
+                                class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="book-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="/all_books" class="active">
+                                    <i class="bi bi-circle"></i><span>All Books</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/borrowed_books">
+                                    <i class="bi bi-circle"></i><span>Previously Borrowed</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/issued_books">
+                                    <i class="bi bi-circle"></i><span>Currently Issued</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/attendance">
+                            <i class="bi bi-table"></i>
+                            <span>Attendance</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/messages">
+                            <i class="bi bi-chat"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/recommendations">
+                            <i class="bi bi-check-circle"></i>
+                            <span>Recommendation</span>
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+            <!-- End Sidebar-->
+            <main id="main" class="main">
+                <div class="pagetitle">
+                    <h1>All Books</h1>
+                    <nav>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/allbooks">Home</a></li>
+                            <li class="breadcrumb-item active">All Books</li>
+                        </ol>
+                    </nav>
+                </div>
+                <section class="section allbooks">
+
+
+                    <div class="row">
+                        <div class="card">
+
+                            <div class="card-body">
+
+                                <h5 class="card-title">Available Books</h5>
+                                <%-include ("../Includes/Student/message.ejs")%>
+                                    <div class="table-responsive-md">
+                                        <table id="allBooksTable" class="table table-hover" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>Title</th>
+                                                    <th>Author</th>
+                                                    <th>Genre</th>
+                                                    <th>Publication Year</th>
+                                                    <th>Availability</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% booksData.forEach((book,index)=> { %>
+                                                    <tr>
+                                                        <td>
+                                                            <%=index + 1%>
+                                                        </td>
+                                                       
+                                                        <td>
+                                                            <%= book.title %>
+                                                        </td>
+                                                        <td>
+                                                            <%= book.author %>
+                                                        </td>
+                                                        <td>
+                                                            <%= book.genre %>
+                                                        </td>
+                                                        <td>
+                                                            <%= book.publication_year %>
+                                                        </td>
+                                                        <td>
+                                                            <% if (book.copies_available <=0) { %>
+                                                                <span class="badge bg-danger">
+                                                                    Not Available
+                                                                </span>
+                                                                <% } else { %>
+                                                                    <span class="badge bg-success">
+                                                                        Available
+                                                                    </span>
+                                                                    <% } %>
+                                                        </td>
+                                                        <td>
+                                                            <div class="row justify-content-center">
+                                                                <div class="col-auto d-flex align-items-center">
+                                                                    <button type="button"
+                                                                        class="btn btn-sm btn-secondary me-2"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#bookID<%= book.id %>">
+                                                                        Details
+                                                                    </button>
+
+                                                                    <form action="/issue/<%= book.id %>" method="post">
+                                                                        <!-- "Issue" button with a conditional check -->
+                                                                        <% if (book.copies_available> 0) { %>
+                                                                            <button type="submit"
+                                                                                class="btn btn-sm btn-success">
+                                                                                Issue
+                                                                            </button>
+                                                                            <% } %>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="modal fade" id="bookID<%= book.id %>"
+                                                                tabindex="-1" aria-labelledby="bookIDLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h1 class="modal-title fs-5"
+                                                                                id="bookIDLabel">
+                                                                            </h1>
+                                                                            <button type="button" class="btn-close"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="row align-items-center">
+                                                                                <div class="col-lg-6">
+                                                                                    <img src="/img/book/<%=
+                                                                                    book.cover_image_url %>"
+                                                                                        alt="Book Cover"
+                                                                                        class="img-fluid">
+                                                                                </div>
+
+                                                                                <div class="col-lg-6">
+
+                                                                                    <h6 class="text-muted">Title: <%=
+                                                                                            book.title %>
+                                                                                    </h6>
+
+
+                                                                                    <h6 class="text-muted">Author: <%=
+                                                                                            book.author %>
+                                                                                    </h6>
+
+
+                                                                                    <h6 class="text-muted">ISBN: <%=
+                                                                                            book.isbn %>
+                                                                                    </h6>
+
+                                                                                    <h6 class="text-muted">Year: <%=
+                                                                                            book.publication_year %>
+                                                                                    </h6>
+
+
+                                                                                    <h6 class="text-muted">Availability:
+                                                                                        <%= book.copies_available %>
+                                                                                    </h6>
+                                                                                    <h6 class="text-muted">Description:
+                                                                                    </h6>
+                                                                                    <p>
+                                                                                        <%= book.description %>
+                                                                                    </p>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-bs-dismiss="modal">Close</button>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                    <% }) %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </main>
+            <!-- End #main -->
+
+            <%-include ("../Includes/Student/script.ejs")%>
+                <script>
+                    $(document).ready(function () {
+                        $('#allBooksTable').DataTable();
+                    });
+                </script>
+
+    </body>
+
+    </html>

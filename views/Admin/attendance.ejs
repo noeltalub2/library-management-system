@@ -1,0 +1,212 @@
+<%-include ("../Includes/Admin/head.ejs")%>
+
+    <body>
+        <%-include ("../Includes/Admin/header.ejs")%>
+            <!-- ======= Sidebar ======= -->
+            <aside id="sidebar" class="sidebar">
+                <ul class="sidebar-nav" id="sidebar-nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/dashboard">
+                            <i class="bi bi-columns-gap"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/students">
+                            <i class="bi bi-people"></i>
+                            <span>Manage Students</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/faculty">
+                            <i class="bi bi-person-vcard"></i>
+                            <span>Manage Faculty</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/admin/attendance">
+                            <i class="bi bi-table"></i>
+                            <span>Attendance</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" data-bs-target="#book-nav" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-book-half"></i><span>Books</span><i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="book-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="/admin/all_books">
+                                    <i class="bi bi-circle"></i><span>All Books</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/issued_books">
+                                    <i class="bi bi-circle"></i><span>Currently Issued</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/issue_request">
+                                    <i class="bi bi-circle"></i><span>Issued Request</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/renew_request">
+                                    <i class="bi bi-circle"></i><span>Renew Request</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/return_request">
+                                    <i class="bi bi-circle"></i><span>Return Request</span>
+                                </a>
+                            </li>
+
+
+                            <li>
+                                <a href="/admin/recommendations">
+                                    <i class="bi bi-check-circle"></i>
+                                    <span>Recommendations</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/admin/messages">
+                            <i class="bi bi-chat"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </aside>
+            <!-- End Sidebar-->
+            <main id="main" class="main">
+                <div class="pagetitle">
+                    <h1>Attendance</h1>
+                    <nav>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
+                            <li class="breadcrumb-item active">Attendance</li>
+                        </ol>
+                    </nav>
+                </div>
+                <section class="section profile">
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-body pt-3">
+                                <div class="col-auto">
+                                    <h5 class="card-title">All Student Attendance</h5>
+                                </div>
+                                <div class="mb-2 row g-2">
+                                    <div class="col-auto">
+                                        <label for="min" class="">Minimum Date</label>
+                                        <input type="date" name="min" id="min" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-auto">
+                                        <label for="max">Maximum Date</label>
+                                        <input type="date" name="max" id="max" class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                                <div class="table-responsive-md">
+                                    <table id="attendance" class="table table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Date</th>
+                                                <th>Timed In</th>
+                                                <th>Timed Out</th>
+                                                <th>Name</th>
+                                                <th>Gender</th>
+                                                <th>Grade/Year</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%attendances.forEach((attendance,index)=> {%>
+                                                <tr>
+                                                    <td>
+                                                        <%=index + 1%>
+                                                    </td>
+                                                    <td>
+                                                        <%=attendance.log_date.toLocaleString('en-US', { year: 'numeric'
+                                                            , month: 'long' , day: 'numeric' , hour: 'numeric' ,
+                                                            minute: 'numeric' , hour12: true })%>
+                                                    </td>
+
+                                                    <td>
+                                                        <%=attendance.time_in%>
+                                                    </td>
+                                                    <td>
+                                                        <%=attendance.time_out%>
+                                                    </td>
+                                                    <td>
+                                                        <%= attendance.student_name || attendance.faculty_name %>
+                                                    </td>
+                                                    <td>
+                                                        <%= attendance.student_gender || attendance.faculty_gender %>
+                                                    </td>
+                                                    <td>
+                                                        <%= attendance.year_section || 'Faculty' %>
+
+
+                                                    </td>
+
+                                                </tr>
+
+                                                <%})%>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </main>
+            <!-- End #main -->
+            <%-include ("../Includes/Admin/script.ejs")%>
+                <script>
+                    $(document).ready(function () {
+                        var table = $('#attendance').DataTable({
+                            dom: 'lBfrtip', // 'l' for Length changing, 'B' for Buttons
+                            buttons: [
+                                {
+                                    extend: 'excel',
+                                    title: 'Attendance for CIT',
+                                    text: 'Export to Excel',
+                                    className: 'btn btn-success btn-sm px-3',
+                                }
+                            ]
+                        });
+
+                        // Add date range filter
+                        $('#min, #max').on('change', function () {
+                            table.draw();
+                        });
+
+                        $.fn.dataTable.ext.search.push(
+                            function (settings, data, dataIndex) {
+                                var min = $('#min').val();
+                                var max = $('#max').val();
+                                var date = new Date(data[1]); // Assuming your date column is at index 0
+
+                                if ((min === '' || moment(date).isSameOrAfter(min, 'day')) &&
+                                    (max === '' || moment(date).isSameOrBefore(max, 'day'))) {
+                                    return true;
+                                }
+
+                                return false;
+                            }
+                        );
+
+                        // Initialize date range picker
+                        $('.daterange').daterangepicker();
+                    });
+                </script>
+
+    </body>
+
+    </html>
